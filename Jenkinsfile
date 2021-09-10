@@ -15,12 +15,13 @@ pipeline {
         stage('Test') { 
             steps { 
                 echo "Testing release $RELEASE"
+                writeFile file:'test-results.txt', text: 'passed'
             }
         }
     }
     post {
         success {
-            echo "success"
+            archiveArtifacts "test-results.txt"
         }
     }
 }
